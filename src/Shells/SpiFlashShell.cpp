@@ -39,6 +39,7 @@ void SpiFlashShell::run() {
             case 3: cmdStrings(); break;
             case 4: cmdRead();    break;
             case 5: cmdWrite();   break;
+            case 5: cmdFlash();   break;
             case 6: cmdDump();    break;
             case 7: cmdDump(true); break;
             case 8: cmdErase();   break;
@@ -452,7 +453,43 @@ void SpiFlashShell::cmdWrite() {
 
     terminalView.println("SPI Flash Write: Complete.\n");
 }
+/*
+Flash Write
+*/
+void SpiFlashShell::cmdFlash() {
+    // Vérifie présence
+    if (!checkFlashPresent()) return;
 
+    // Adresse
+    auto addr = argTransformer.parseHexOrDec16("0x" + 0);
+
+    std::vector<uint8_t> data;
+    
+    // Liste d'octets hexadécimaux
+    std::string hexStr = userInputManager.readValidatedHexString("Enter byte values (e.g., 01 A5 FF...) ", 0, true);
+    data = argTransformer.parseHexList(hexStr);
+
+    // Confirmation
+    if (!userInputManager.readYesNo("SPI Flash Write: Confirm write operation?", false)) {
+        terminalView.println("SPI Flash Write: Cancelled.\n");
+        return;
+    }
+
+    // Validation
+    if (data.empty()) {
+        terminalView.println("SPI Flash Write: Invalid data format.");
+        return;
+    }
+
+    // Écriture
+    terminalView.println("Writing " + std::to_string(data.size()) + " byte(s) at address 0x" +
+                         argTransformer.toHex(addr, 6));
+
+    uint32_t freq = state.getSpiFrequency();
+    spiService.writeFlashPatch(addr, data, freq);
+
+    terminalView.println("SPI Flash Write: Complete.\n");
+}
 /*
 Flash Erase
 */
