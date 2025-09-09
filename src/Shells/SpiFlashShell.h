@@ -51,6 +51,7 @@ private:
     void cmdStrings();
     void cmdRead();
     void cmdWrite();
+    void cmdFlash();
     void cmdErase();
     void cmdDump(bool raw = false);
     void readFlashInChunks(uint32_t address, uint32_t length);
