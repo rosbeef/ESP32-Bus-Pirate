@@ -30,6 +30,7 @@ private:
         " 📜 Extract strings",
         " 📖 Read bytes",
         " ✏️  Write bytes",
+        " ✏️  Flash Firmware",
         " 🗃️  Dump ASCII",
         " 🗃️  Dump RAW",
         " 💣 Erase Flash",
