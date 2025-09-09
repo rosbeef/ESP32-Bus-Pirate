@@ -39,10 +39,10 @@ void SpiFlashShell::run() {
             case 3: cmdStrings(); break;
             case 4: cmdRead();    break;
             case 5: cmdWrite();   break;
-            case 5: cmdFlash();   break;
-            case 6: cmdDump();    break;
-            case 7: cmdDump(true); break;
-            case 8: cmdErase();   break;
+            case 6: cmdFlash();   break;
+            case 7: cmdDump();    break;
+            case 8: cmdDump(true); break;
+            case 9: cmdErase();   break;
             default:
                 terminalView.println("Unknown action.\n");
                 break;
