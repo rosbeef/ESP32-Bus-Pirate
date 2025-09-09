@@ -492,10 +492,10 @@ void SpiFlashShell::cmdDump(bool raw) {
 
     terminalView.println("\nSPI Flash: Full dump from 0x000000... Press [ENTER] to stop.\n");
 
-    if (raw) {
+    /*if (raw) {
         auto confirm = userInputManager.readYesNo("The raw mode is for python scripting, Continue?", false);
         if (!confirm) return;
-    }
+    }*/
 
     // Get flash size
     uint32_t flashSize = readFlashCapacity();
